@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">YaM</string>
+    <string name="tab_playlist">Playlist</string>
+    <string name="tab_radio">Radio</string>
+    <string name="tab_player">Player</string>
+    <string name="tab_settings">Settings</string>
+    <string name="input_search">Search</string>
+    <string name="logout_button">Logout</string>
+    <string name="settings_style">Settings style</string>
+    <string name="input_login">login</string>
+    <string name="input_password">password</string>
+    <string name="button_login">Sing in</string>
+    <string name="button_sing_up">Sing up</string>
+    <string name="item_my_playlists">My playlists</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget" translatable="false">Add widget</string>
+    <string name="settings_cache">Settings cache</string>
+    <string name="error_get_data">data acquisition error</string>
+    <string name="dialog_playlist_settings_title">settings</string>
+    <string name="dialog_playlist_settings_visible">visible</string>
+    <string name="save">save</string>
+    <string name="dialog_playlist_settings_delete">delete</string>
+    <string name="dialog_playlist_settings_share">share</string>
+    <string name="dialog_playlist_settings_playlist_title">title</string>
+    <string name="intend_share">Share</string>
+</resources>

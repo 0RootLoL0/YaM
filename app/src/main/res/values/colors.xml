@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#474747</color>
+    <color name="colorPrimaryDark">#333333</color>
+    <color name="colorAccent">#FFCC00</color>
+    <color name="colorNonBg">#00FFFFFF</color>
+    <color name="colorSplashBg">#333333</color>
+    <color name="colorLablePlaylist">#000000</color>
+    <color name="colorColTimePlaylist">#474747</color>
+    <color name="colorBgPlaylist">#FFFFFF</color>
+    <color name="colorTitlePlaylist">#000000</color>
+    <color name="colorTrackTitle">#FFFFFF</color>
+    <color name="colorDownloadPlayer">#FFFFFF</color>
+    <color name="colorBgSearch">#FFFFFF</color>
+    <color name="colorTextLoginSettings">#FFFFFF</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="colorSingUp">#757575</color>
+    <color name="windowBg">#3E3E3E</color>
+    <color name="colorTextSettingsDialogPlaylist">#000000</color>
+    <color name="colorBgToolbarControllerPlaylistTrack">#646464</color>
+    <color name="colorTextToolbarControllerPlaylistTrack">#FFFFFF</color>
+</resources>

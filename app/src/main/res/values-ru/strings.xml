@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">YaM</string>
+    <string name="tab_playlist">Плейлист</string>
+    <string name="tab_radio">Радио</string>
+    <string name="tab_player">Плееер</string>
+    <string name="tab_settings">Настройки</string>
+    <string name="input_search">Поиск</string>
+    <string name="logout_button">Выход</string>
+    <string name="settings_style">Настройка темы</string>
+    <string name="input_login">логин</string>
+    <string name="input_password">пароль</string>
+    <string name="button_login">Войти</string>
+    <string name="button_sing_up">Регистрация</string>
+    <string name="item_my_playlists">Мои плейлиты</string>
+    <string name="appwidget_text">тест</string>
+    <string name="settings_cache">Настройки кеши =)</string>
+    <string name="error_get_data">ошибка получения данных</string>
+    <string name="dialog_playlist_settings_title">настройки</string>
+    <string name="dialog_playlist_settings_visible">видимость</string>
+    <string name="save">сохронить</string>
+    <string name="dialog_playlist_settings_delete">удалить</string>
+    <string name="dialog_playlist_settings_share">поделиться</string>
+    <string name="dialog_playlist_settings_playlist_title">название</string>
+    <string name="intend_share">Поделится</string>
+</resources>
