@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <service
+            android:name=".service.YaMPlayerService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <receiver android:name=".widget.PlayerWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

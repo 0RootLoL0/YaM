@@ -1,5 +1,6 @@
 package com.rootlol.yam.activity.controller.homecontroller.playlistсontroller;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.rootlol.yam.db.ApplicationDB;
 import com.rootlol.yam.db.PlaylistCacheDB;
 import com.rootlol.yam.db.TrackListCacheDB;
 import com.rootlol.yam.db.UsersDB;
+import com.rootlol.yam.service.YaMPlayerService;
 import com.rootlol.yam.tools.RecyclerViewTool;
 
 import java.util.ArrayList;
@@ -139,7 +141,9 @@ public class TrackListController extends Controller implements SwipeRefreshLayou
     }
     @Override
     public void onClickTrack(TrackInterface model, int position) {
-
+        Intent intent =new Intent(getActivity(), YaMPlayerService.class);
+        intent.setAction("startServise");
+        getActivity().startService(intent);
     }
     @Override
     public void onSettingsClickTrack(TrackInterface model, int position) {

@@ -38,6 +38,9 @@ public class PlaylistAdapter extends RecyclerView.Adapter {
     public void addNewItems(List<PlaylistListInterface> items) {
         playlist_list.addAll(items);
     }
+    public void addNewItem(PlaylistListInterface item) {
+        playlist_list.add(item);
+    }
 
     @Override
     public int getItemViewType(int position) {
