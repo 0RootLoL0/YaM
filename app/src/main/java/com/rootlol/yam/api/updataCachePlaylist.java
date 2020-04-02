@@ -45,6 +45,7 @@ public abstract class updataCachePlaylist extends AsyncTask<UsersDB.UserEntity, 
             return null;
         }
     }
+
     public String getBase64Image(String src){
         try {
             URL url = new URL(src);
@@ -98,6 +99,8 @@ public abstract class updataCachePlaylist extends AsyncTask<UsersDB.UserEntity, 
                 ));
             }
         }
+
+        tempItem.add(new PlaylistCacheDB.PlaylistCacheEntity("Мне нравится", " ", getBase64Image("https://music.yandex.ru/blocks/playlist-cover/playlist-cover_like.png"), PlaylistCacheDB.USER_CREATE,3,"visibli"));
 
         List<Result> mGetPlaylistList = getPLaylistList(lp[0].user_id, lp[0].token);
         if (mGetPlaylistList != null){

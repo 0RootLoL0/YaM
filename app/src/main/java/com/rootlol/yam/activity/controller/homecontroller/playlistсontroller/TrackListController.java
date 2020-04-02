@@ -31,7 +31,12 @@ import com.rootlol.yam.tools.RecyclerViewTool;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/***************************************
+ * да я понимаю что дабавил погинация,
+ * а толку нет, но до deadline осталось
+ * 1143:27:51 стоит поторапится
+ * так сказать бизнес решения
+ ***************************************/
 public class TrackListController extends Controller implements SwipeRefreshLayout.OnRefreshListener, TrackAdapter.onClickListener{
 
     private SwipeRefreshLayout SRL;
