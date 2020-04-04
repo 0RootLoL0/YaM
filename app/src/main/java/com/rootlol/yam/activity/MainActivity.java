@@ -11,6 +11,7 @@ import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.rootlol.yam.App;
 import com.rootlol.yam.R;
 import com.rootlol.yam.activity.controller.HomeController;
 import com.rootlol.yam.activity.controller.SearchController;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        App.getInstance().setAppCompatActivity(this);
         container = findViewById(R.id.controller_container);
 
         router = Conductor.attachRouter(this, container, savedInstanceState);

@@ -22,5 +22,14 @@
     <string name="dialog_playlist_settings_delete">удалить</string>
     <string name="dialog_playlist_settings_share">поделиться</string>
     <string name="dialog_playlist_settings_playlist_title">название</string>
+    <string name="not_track_lable">трек не выбран</string>
+    <string name="not_track_subtitle">выберете трек</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
     <string name="intend_share">Поделится</string>
+    <string name="not_net">Нет соединения с интернетом</string>
+    <string name="error_in_login_and_pass">Ошибка в Login или Password</string>
 </resources>

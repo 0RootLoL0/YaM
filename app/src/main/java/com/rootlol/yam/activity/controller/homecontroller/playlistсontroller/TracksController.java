@@ -25,7 +25,14 @@ import com.rootlol.yam.db.UsersDB;
 import com.rootlol.yam.nadapter.playlist.PlaylistAdapter;
 import com.rootlol.yam.nadapter.playlist.PlaylistListInterface;
 import com.rootlol.yam.nadapter.playlist.data.PlaylistDataSourceFactory;
+import com.rootlol.yam.nadapter.track.TrackAdapter;
+import com.rootlol.yam.nadapter.track.TrackListInterface;
+import com.rootlol.yam.nadapter.track.data.TrackDataSourceFactory;
 import com.rootlol.yam.pojo.feed.FeedPojo;
+import com.rootlol.yam.pojo.usersplaylists.UsersPlaylistsPojo;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,21 +40,19 @@ import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class PlaylistController extends Controller implements SwipeRefreshLayout.OnRefreshListener, PlaylistAdapter.onClickListener {
+public class TracksController extends Controller implements TrackAdapter.onClickListener{
 
-    private SwipeRefreshLayout SRL;
-    private RecyclerView PRV;
+    private RecyclerView TRV;
 
     private UsersDB.UserDao userDao;
     SharedPreferences sPref;
-    private String TAG = "PlaylistController";
     PagedList.Config config;
-    private PlaylistAdapter adapter;
+    private TrackAdapter adapter;
 
 
     @NonNull
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        View view = inflater.inflate(R.layout.controller_home_playlist, container, false);
+        View view = inflater.inflate(R.layout.activity_track, container, false);
 
         //bind view
         bind(view);
@@ -57,20 +62,14 @@ public class PlaylistController extends Controller implements SwipeRefreshLayout
                 .setPageSize(sPref.getInt("LIMIT", 10))
                 .build();
 
-        if (App.getInstance().getPlaylistAdapter() == null) updataDatalist();
-        else {
-            PRV.setAdapter(App.getInstance().getPlaylistAdapter());
-            SRL.setRefreshing(false);
-        }
+        updataDatalist();
 
         return view;
     }
     private void bind(View view){
-        SRL = view.findViewById(R.id.refresh);
-        SRL.setOnRefreshListener(this);
-        PRV = view.findViewById(R.id.list);
-        PRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        PRV.setHasFixedSize(true);
+        TRV = view.findViewById(R.id.tlist);
+        TRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        TRV.setHasFixedSize(true);
     }
     private void setDB(){
         userDao = App.getInstance().getDatabase().userDao();
@@ -78,52 +77,56 @@ public class PlaylistController extends Controller implements SwipeRefreshLayout
     }
 
     private void updataDatalist(){
-        SRL.setRefreshing(true);
+        //SRL.setRefreshing(true);
 
-        adapter = new PlaylistAdapter();
+        adapter = new TrackAdapter();
         adapter.setListener(this);
-        MusicYandexApi.getInstance().feed("OAuth "+userDao.getAll().get(0).token).enqueue(new Callback<FeedPojo>() {
+
+        Map<String, String> TrackPostBody = new HashMap<>();
+        TrackPostBody.put("kinds", "1022");
+
+        MusicYandexApi.getInstance().getTrackList(
+                userDao.getAll().get(0).user_id,
+                "OAuth "+userDao.getAll().get(0).token,
+                TrackPostBody).enqueue(new Callback<UsersPlaylistsPojo>() {
             @Override
-            public void onResponse(Call<FeedPojo> call, Response<FeedPojo> response) {
+            public void onResponse(Call<UsersPlaylistsPojo> call, Response<UsersPlaylistsPojo> response) {
 
-                LiveData<PagedList<PlaylistListInterface>> pagedListLiveData = new LivePagedListBuilder<>(new PlaylistDataSourceFactory(response.body().getResult().getGeneratedPlaylists()), config).build();
+                LiveData<PagedList<TrackListInterface>> pagedListLiveData = new LivePagedListBuilder<>(new TrackDataSourceFactory(response.body().getResult().get(0).getTracks()), config).build();
                 //лол грязный хак         ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇    TODO: исправить
-                pagedListLiveData.observe(App.getInstance().getAppCompatActivity(), new Observer<PagedList<PlaylistListInterface>>() {
+                pagedListLiveData.observe(App.getInstance().getAppCompatActivity(), new Observer<PagedList<TrackListInterface>>() {
                     @Override
-                    public void onChanged(@Nullable PagedList<PlaylistListInterface> playlistListInterfaces) {
+                    public void onChanged(@Nullable PagedList<TrackListInterface> trackListInterface) {
 
-                        adapter.submitList(playlistListInterfaces);
+                        adapter.submitList(trackListInterface);
                     }
                 });
-                PRV.setAdapter(adapter);
-                SRL.setRefreshing(false);
+
+
+                TRV.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<FeedPojo> call, Throwable t) {
+            public void onFailure(Call<UsersPlaylistsPojo> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), R.string.not_net, Toast.LENGTH_LONG).show();
-                SRL.setRefreshing(false);
             }
         });
     }
 
+
     //IMPLEMENTS
     @Override
-    public void onRefresh() {
-        updataDatalist();
+    public void onClickTrack(TrackListInterface model, int position) {
     }
     @Override
-    public void onItemClick(PlaylistListInterface model, int position) {
-        getRouter().setRoot(RouterTransaction.with(new TracksController()));
+    public void onSettingsClickTrack(TrackListInterface model, int position) {
     }
     @Override
-    public void onSettingsItemClick(PlaylistListInterface model, int position) {
-
+    public void onSmartButtonClickTrack(TrackListInterface model, int position) {
     }
-
     @Override
-    protected void onDestroyView(@NonNull View view) {
-        super.onDestroyView(view);
-        App.getInstance().setPlaylistAdapter(adapter);
+    public boolean handleBack() {
+        getRouter().setRoot(RouterTransaction.with(new PlaylistController()));
+        return true;
     }
 }

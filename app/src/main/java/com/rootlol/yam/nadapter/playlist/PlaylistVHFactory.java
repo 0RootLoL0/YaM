@@ -1,4 +1,4 @@
-package com.rootlol.yam.adapter.playlist.factory;
+package com.rootlol.yam.nadapter.playlist;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rootlol.yam.R;
-import com.rootlol.yam.adapter.playlist.interfaces.PlaylistListInterface;
 
 public class PlaylistVHFactory {
     public static class TitleViewHolder extends RecyclerView.ViewHolder {

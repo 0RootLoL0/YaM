@@ -38,7 +38,14 @@ public class TrackListCacheDB {
 
         public int playlistKind;
 
-        public TrackListCacheEntity(String titleTrack, String track_id, String versionTrack, int artists_id, String artists_name, int albums_id, String albums_title, String coverImage, int durationMs, int playlistKind) {
+        public String urlDownload;
+
+        public TrackListCacheEntity(String titleTrack, String track_id,
+                                    String versionTrack, int artists_id,
+                                    String artists_name, int albums_id,
+                                    String albums_title, String coverImage,
+                                    int durationMs, int playlistKind,
+                                    String urlDownload) {
             this.titleTrack = titleTrack;
             this.track_id = track_id;
             this.versionTrack = versionTrack;
@@ -49,6 +56,7 @@ public class TrackListCacheDB {
             this.coverImage = coverImage;
             this.durationMs = durationMs;
             this.playlistKind = playlistKind;
+            this.urlDownload = urlDownload;
         }
     }
     @Dao

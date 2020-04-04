@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.rootlol.yam.db.TrackListCacheDB;
+import com.rootlol.yam.pojo.downloadinfo.DownloadInfoPojo;
 import com.rootlol.yam.pojo.likestracks.LikesTracksPojo;
 import com.rootlol.yam.pojo.track.TrackPojo;
 import com.rootlol.yam.pojo.usersplaylists.Track;
@@ -57,7 +58,6 @@ public abstract class updataCacheTrack extends AsyncTask<String, Void, List<Trac
             return null;
         }
     }
-
     public JSONArray getGetLikes(String token, String user_id){
         OkHttpClient client = new OkHttpClient();
 
@@ -82,7 +82,6 @@ public abstract class updataCacheTrack extends AsyncTask<String, Void, List<Trac
             return null;
         }
     }
-
     public TrackListCacheDB.TrackListCacheEntity getTrackInfo(String token, String track_id, String kind){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -104,7 +103,8 @@ public abstract class updataCacheTrack extends AsyncTask<String, Void, List<Trac
                             TP.getResult().get(0).getAlbums().get(0).getTitle(),
                             getBase64Image(TP.getResult().get(0).getCoverUri()),
                             TP.getResult().get(0).getDurationMs().intValue(),
-                            Integer.parseInt(kind));
+                            Integer.parseInt(kind),
+                            getDownloadInfoUrl(token, track_id));
                 else if (TP.getResult().get(0).getAvailable())
                     return new TrackListCacheDB.TrackListCacheEntity(
                             TP.getResult().get(0).getTitle(),
@@ -116,7 +116,8 @@ public abstract class updataCacheTrack extends AsyncTask<String, Void, List<Trac
                             TP.getResult().get(0).getAlbums().get(0).getTitle(),
                             getBase64Image(TP.getResult().get(0).getCoverUri()),
                             TP.getResult().get(0).getDurationMs().intValue(),
-                            Integer.parseInt(kind));
+                            Integer.parseInt(kind),
+                            getDownloadInfoUrl(token, track_id));
                 else return new TrackListCacheDB.TrackListCacheEntity(
                         TP.getResult().get(0).getTitle(),
                         TP.getResult().get(0).getId(),
@@ -127,14 +128,32 @@ public abstract class updataCacheTrack extends AsyncTask<String, Void, List<Trac
                         "not availableFullWithoutPermission",
                         null,
                         0,
-                        Integer.parseInt(kind));
+                        Integer.parseInt(kind),
+                        "https://codeskulptor-demos.commondatastorage.googleapis.com/pang/paza-moduless.mp3");
             }
             return null;
         } catch (IOException | NullPointerException e) {
             return null;
         }
     }
-
+    public String getDownloadInfoUrl(String token, String track_id){
+        OkHttpClient client = new OkHttpClient();
+        Gson gson = new Gson();
+        Request request = new Request.Builder()
+                .url("https://api.music.yandex.net/tracks/"+track_id+"/download-info")
+                .header("Authorization", "OAuth "+token)
+                .build();
+        try {
+            okhttp3.Response response = client.newCall(request).execute();
+            DownloadInfoPojo DIP = gson.fromJson(response.body().string(), DownloadInfoPojo.class);
+            if (DIP != null){
+                return DIP.getResult().get(3).getDownloadInfoUrl();
+            }
+            return null;
+        } catch (IOException e) {
+            return null;
+        }
+    }
     public String getBase64Image(String src){
         try {
             URL url = new URL("https://"+src.replace("%%", "100x100"));

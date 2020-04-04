@@ -18,6 +18,7 @@ import com.rootlol.yam.activity.controller.homecontroller.PlayerController;
 import com.rootlol.yam.activity.controller.homecontroller.playlistсontroller.PlaylistController;
 import com.rootlol.yam.activity.controller.homecontroller.RadioController;
 import com.rootlol.yam.activity.controller.homecontroller.SettingsController;
+import com.rootlol.yam.activity.controller.homecontroller.playlistсontroller.TracksController;
 
 public class HomeController extends Controller {
 

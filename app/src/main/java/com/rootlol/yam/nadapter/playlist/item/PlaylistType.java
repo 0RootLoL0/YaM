@@ -1,14 +1,14 @@
-package com.rootlol.yam.adapter.playlist.data;
+package com.rootlol.yam.nadapter.playlist.item;
 
-import android.content.Context;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rootlol.yam.adapter.PlaylistAdapter;
-import com.rootlol.yam.adapter.playlist.factory.PlaylistVHFactory;
-import com.rootlol.yam.adapter.playlist.interfaces.PlaylistListInterface;
-import com.rootlol.yam.tools.ImageTool;
+import com.bumptech.glide.Glide;
+import com.rootlol.yam.App;
+import com.rootlol.yam.nadapter.playlist.PlaylistAdapter;
+import com.rootlol.yam.nadapter.playlist.PlaylistVHFactory;
+import com.rootlol.yam.nadapter.playlist.PlaylistListInterface;
 
 public class PlaylistType implements PlaylistListInterface {
 
@@ -26,25 +26,21 @@ public class PlaylistType implements PlaylistListInterface {
     }
 
     @Override
-    public int getId() {
+    public int getPosit() {
         return id;
     }
 
     @Override
-    public int getItemViewType() {
-        return PlaylistListInterface.PLAYLIST_TYPE;
-    }
-
-    @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder,
-                                 final int position,
-                                 final PlaylistListInterface playlist_list,
-                                 final PlaylistAdapter.onClickListener ItemListener,
-                                 Context context) {
+                                 int position,
+                                 PlaylistListInterface playlist_list,
+                                 PlaylistAdapter.onClickListener ItemListener) {
         PlaylistVHFactory.PlaylistViewHolder playlistViewHolder = (PlaylistVHFactory.PlaylistViewHolder) viewHolder;
         playlistViewHolder.lable.setText(lable);
         playlistViewHolder.colTime.setText(colTime);
-        playlistViewHolder.coverImage.setImageBitmap(ImageTool.convert(coverIm, context.getResources()));
+        Glide.with(App.getInstance())
+                .load(coverIm)
+                .into(playlistViewHolder.coverImage);
 
         if(ItemListener != null){
             playlistViewHolder.cardView.setOnClickListener(new View.OnClickListener() {

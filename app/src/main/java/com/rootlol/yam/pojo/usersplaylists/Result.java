@@ -1,7 +1,19 @@
 
 package com.rootlol.yam.pojo.usersplaylists;
 
+import android.content.Context;
+import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.google.gson.annotations.SerializedName;
+import com.rootlol.yam.App;
+import com.rootlol.yam.adapter.track.factory.TrackVHFactory;
+import com.rootlol.yam.adapter.track.interfaces.TrackInterface;
+import com.rootlol.yam.nadapter.track.TrackAdapter;
+import com.rootlol.yam.nadapter.track.TrackListInterface;
+import com.rootlol.yam.tools.ImageTool;
 
 import java.util.List;
 

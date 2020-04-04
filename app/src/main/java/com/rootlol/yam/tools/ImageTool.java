@@ -8,6 +8,10 @@ import android.util.Base64;
 import com.rootlol.yam.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class ImageTool {
 
@@ -27,5 +31,4 @@ public class ImageTool {
 
         return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
     }
-
 }
