@@ -1,4 +1,4 @@
-package com.rootlol.yam.nadapter.playlist.data;
+package com.rootlol.yam.adapter.playlist.data;
 
 import android.widget.Toast;
 
@@ -9,8 +9,8 @@ import com.rootlol.yam.App;
 import com.rootlol.yam.R;
 import com.rootlol.yam.api.MusicYandexApi;
 import com.rootlol.yam.db.UsersDB;
-import com.rootlol.yam.nadapter.playlist.PlaylistListInterface;
-import com.rootlol.yam.nadapter.playlist.item.PlaylistType;
+import com.rootlol.yam.adapter.playlist.PlaylistListInterface;
+import com.rootlol.yam.adapter.playlist.item.PlaylistType;
 import com.rootlol.yam.pojo.feed.GeneratedPlaylist;
 import com.rootlol.yam.pojo.playlistslist.PlaylistListPojo;
 import com.rootlol.yam.pojo.playlistslist.Result;

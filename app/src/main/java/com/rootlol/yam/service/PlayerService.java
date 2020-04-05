@@ -250,12 +250,10 @@ final public class PlayerService extends Service {
         }
 
         private void prepareToPlay(Uri uri) {
-            if (!uri.equals(currentUri)) {
                 currentUri = uri;
                 ExtractorMediaSource mediaSource = new ExtractorMediaSource(uri, dataSourceFactory, extractorsFactory, null, null);
                 mediaSession.setPlaybackState(stateBuilder.setState(PlaybackStateCompat.STATE_CONNECTING, PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN, 1).build());
                 exoPlayer.prepare(mediaSource);
-            }
         }
 
         private void updateMetadataFromTrack(MusicRepository.Track track) {

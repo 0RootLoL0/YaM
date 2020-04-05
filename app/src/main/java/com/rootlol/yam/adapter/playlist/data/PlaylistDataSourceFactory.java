@@ -1,4 +1,4 @@
-package com.rootlol.yam.nadapter.playlist.data;
+package com.rootlol.yam.adapter.playlist.data;
 
 import androidx.paging.DataSource;
 

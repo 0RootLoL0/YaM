@@ -1,21 +1,12 @@
 package com.rootlol.yam;
 
 import android.app.Application;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.SystemClock;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.rootlol.yam.db.MainDB;
-import com.rootlol.yam.db.UsersDB;
-import com.rootlol.yam.nadapter.playlist.PlaylistAdapter;
-
-import java.util.concurrent.TimeUnit;
+import com.rootlol.yam.adapter.playlist.PlaylistAdapter;
 
 public class App extends Application {
 

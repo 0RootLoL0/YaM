@@ -12,13 +12,14 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 public class MusicYandexApi {
     public interface Api {
@@ -27,9 +28,6 @@ public class MusicYandexApi {
 
         @GET("users/{id}/playlists/list")
         Call<PlaylistListPojo> getPlaylists(@Path("id") int UserId, @Header("Authorization") String authorization);
-
-
-
 
 
         @GET("users/{id}/likes/tracks")
@@ -45,6 +43,9 @@ public class MusicYandexApi {
         @GET("tracks/{id}/download-info")
         Call<DownloadInfoPojo> getDownloadInfoUrl(@Path("id") int TrackId, @Header("Authorization") String authorization);
 
+        @GET
+        Call<String> downloadUrl(@Url String url);
+
 
     }
     private static String urlBase = "https://api.music.yandex.net/";
@@ -54,6 +55,7 @@ public class MusicYandexApi {
     public static Api getInstance(){
         if(retrofit == null) {
             retrofit = new Retrofit.Builder()
+                    .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl(urlBase)
                     .build();

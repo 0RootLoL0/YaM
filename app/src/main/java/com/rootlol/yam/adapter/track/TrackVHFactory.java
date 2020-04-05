@@ -1,4 +1,4 @@
-package com.rootlol.yam.nadapter.track;
+package com.rootlol.yam.adapter.track;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,8 +1,6 @@
-package com.rootlol.yam.nadapter.track;
+package com.rootlol.yam.adapter.track;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.rootlol.yam.nadapter.playlist.PlaylistAdapter;
 
 public interface TrackListInterface {
     int TRACK_TYPE = 0;

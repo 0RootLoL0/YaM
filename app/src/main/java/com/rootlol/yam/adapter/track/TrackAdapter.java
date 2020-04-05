@@ -1,4 +1,4 @@
-package com.rootlol.yam.nadapter.playlist;
+package com.rootlol.yam.adapter.track;
 
 import android.annotation.SuppressLint;
 import android.view.ViewGroup;
@@ -9,17 +9,17 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class PlaylistAdapter extends PagedListAdapter<PlaylistListInterface, RecyclerView.ViewHolder> {
+public class TrackAdapter extends PagedListAdapter<TrackListInterface, RecyclerView.ViewHolder> {
 
-    private onClickListener ItemListener;
-    public PlaylistAdapter() {
+    private onClickListener ItemListener = null;
+    public TrackAdapter() {
         super(DIFF_CALLBACK);
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return PlaylistVHFactory.create(parent, viewType);
+        return TrackVHFactory.create(parent, viewType);
     }
 
     @Override
@@ -30,23 +30,24 @@ public class PlaylistAdapter extends PagedListAdapter<PlaylistListInterface, Rec
     public void setListener(onClickListener ItemListener){
         this.ItemListener = ItemListener;
     }
-    private static DiffUtil.ItemCallback<PlaylistListInterface> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<PlaylistListInterface>() {
+    private static DiffUtil.ItemCallback<TrackListInterface> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<TrackListInterface>() {
                 @Override
-                public boolean areItemsTheSame(PlaylistListInterface oldItem, PlaylistListInterface newItem) {
+                public boolean areItemsTheSame(TrackListInterface oldItem, TrackListInterface newItem) {
                     return oldItem.getPosit() == newItem.getPosit();
                 }
 
                 @SuppressLint("DiffUtilEquals")
                 @Override
-                public boolean areContentsTheSame(PlaylistListInterface oldItem, PlaylistListInterface newItem) {
+                public boolean areContentsTheSame(TrackListInterface oldItem, TrackListInterface newItem) {
                     return oldItem.equals(newItem);
                 }
             };
 
 
     public interface onClickListener{
-        void onItemClick(PlaylistListInterface model, int position);
-        void onSettingsItemClick(PlaylistListInterface model, int position);
+        void onClickTrack(TrackListInterface model, int position);
+        void onSettingsClickTrack(TrackListInterface model, int position);
+        void onSmartButtonClickTrack(TrackListInterface model, int position);
     }
 }

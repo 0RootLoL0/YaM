@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.gson.annotations.SerializedName;
 import com.rootlol.yam.App;
-import com.rootlol.yam.nadapter.playlist.PlaylistAdapter;
-import com.rootlol.yam.nadapter.playlist.PlaylistListInterface;
-import com.rootlol.yam.nadapter.playlist.PlaylistVHFactory;
+import com.rootlol.yam.adapter.playlist.PlaylistAdapter;
+import com.rootlol.yam.adapter.playlist.PlaylistListInterface;
+import com.rootlol.yam.adapter.playlist.PlaylistVHFactory;
 
 public class GeneratedPlaylist implements PlaylistListInterface {
 

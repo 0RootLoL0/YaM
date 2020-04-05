@@ -1,11 +1,11 @@
-package com.rootlol.yam.nadapter.track.data;
+package com.rootlol.yam.adapter.track.data;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PositionalDataSource;
 
 import com.rootlol.yam.App;
 import com.rootlol.yam.db.UsersDB;
-import com.rootlol.yam.nadapter.track.TrackListInterface;
+import com.rootlol.yam.adapter.track.TrackListInterface;
 import com.rootlol.yam.pojo.usersplaylists.Track;
 
 import java.util.ArrayList;

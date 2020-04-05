@@ -22,9 +22,9 @@ import com.rootlol.yam.App;
 import com.rootlol.yam.R;
 import com.rootlol.yam.api.MusicYandexApi;
 import com.rootlol.yam.db.UsersDB;
-import com.rootlol.yam.nadapter.playlist.PlaylistAdapter;
-import com.rootlol.yam.nadapter.playlist.PlaylistListInterface;
-import com.rootlol.yam.nadapter.playlist.data.PlaylistDataSourceFactory;
+import com.rootlol.yam.adapter.playlist.PlaylistAdapter;
+import com.rootlol.yam.adapter.playlist.PlaylistListInterface;
+import com.rootlol.yam.adapter.playlist.data.PlaylistDataSourceFactory;
 import com.rootlol.yam.pojo.feed.FeedPojo;
 import com.rootlol.yam.pojo.playlistslist.Result;
 

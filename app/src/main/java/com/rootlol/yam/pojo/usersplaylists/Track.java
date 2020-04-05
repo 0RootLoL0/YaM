@@ -10,9 +10,9 @@ import com.bumptech.glide.Glide;
 import com.google.gson.annotations.SerializedName;
 import com.rootlol.yam.App;
 import com.rootlol.yam.api.MusicYandexApi;
-import com.rootlol.yam.nadapter.track.TrackAdapter;
-import com.rootlol.yam.nadapter.track.TrackListInterface;
-import com.rootlol.yam.nadapter.track.TrackVHFactory;
+import com.rootlol.yam.adapter.track.TrackAdapter;
+import com.rootlol.yam.adapter.track.TrackListInterface;
+import com.rootlol.yam.adapter.track.TrackVHFactory;
 import com.rootlol.yam.pojo.track.TrackPojo;
 import com.rootlol.yam.tools.MusicRepository;
 
@@ -72,7 +72,7 @@ public class Track implements TrackListInterface {
                         response.body().getResult().get(0).getArtists().get(0).getName(),
                         null,
                         response.body().getResult().get(0).getDurationMs(),
-                        Uri.parse("https://ruq.hotmo.org/get/music/20190717/muzlome_Coone_-_Evolution_Is_Here_65505884.mp3")));
+                        mId.intValue()));
             }
 
             @Override

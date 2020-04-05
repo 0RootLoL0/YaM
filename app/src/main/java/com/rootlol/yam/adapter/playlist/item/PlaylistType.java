@@ -1,4 +1,4 @@
-package com.rootlol.yam.nadapter.playlist.item;
+package com.rootlol.yam.adapter.playlist.item;
 
 import android.view.View;
 
@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.rootlol.yam.App;
-import com.rootlol.yam.nadapter.playlist.PlaylistAdapter;
-import com.rootlol.yam.nadapter.playlist.PlaylistVHFactory;
-import com.rootlol.yam.nadapter.playlist.PlaylistListInterface;
+import com.rootlol.yam.adapter.playlist.PlaylistAdapter;
+import com.rootlol.yam.adapter.playlist.PlaylistVHFactory;
+import com.rootlol.yam.adapter.playlist.PlaylistListInterface;
 
 public class PlaylistType implements PlaylistListInterface {
 

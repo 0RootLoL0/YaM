@@ -1,9 +1,7 @@
-package com.rootlol.yam.nadapter.track.data;
+package com.rootlol.yam.adapter.track.data;
 
 import androidx.paging.DataSource;
 
-import com.rootlol.yam.pojo.feed.GeneratedPlaylist;
-import com.rootlol.yam.pojo.usersplaylists.Result;
 import com.rootlol.yam.pojo.usersplaylists.Track;
 
 import java.util.List;

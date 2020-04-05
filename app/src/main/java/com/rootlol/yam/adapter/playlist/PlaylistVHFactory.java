@@ -1,4 +1,4 @@
-package com.rootlol.yam.nadapter.playlist;
+package com.rootlol.yam.adapter.playlist;
 
 import android.view.LayoutInflater;
 import android.view.View;

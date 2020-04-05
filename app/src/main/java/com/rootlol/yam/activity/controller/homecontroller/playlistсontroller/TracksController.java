@@ -14,7 +14,6 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
@@ -22,13 +21,9 @@ import com.rootlol.yam.App;
 import com.rootlol.yam.R;
 import com.rootlol.yam.api.MusicYandexApi;
 import com.rootlol.yam.db.UsersDB;
-import com.rootlol.yam.nadapter.playlist.PlaylistAdapter;
-import com.rootlol.yam.nadapter.playlist.PlaylistListInterface;
-import com.rootlol.yam.nadapter.playlist.data.PlaylistDataSourceFactory;
-import com.rootlol.yam.nadapter.track.TrackAdapter;
-import com.rootlol.yam.nadapter.track.TrackListInterface;
-import com.rootlol.yam.nadapter.track.data.TrackDataSourceFactory;
-import com.rootlol.yam.pojo.feed.FeedPojo;
+import com.rootlol.yam.adapter.track.TrackAdapter;
+import com.rootlol.yam.adapter.track.TrackListInterface;
+import com.rootlol.yam.adapter.track.data.TrackDataSourceFactory;
 import com.rootlol.yam.pojo.usersplaylists.UsersPlaylistsPojo;
 import com.rootlol.yam.tools.MusicRepository;
 
