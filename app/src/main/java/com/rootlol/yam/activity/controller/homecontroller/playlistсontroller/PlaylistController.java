@@ -26,6 +26,7 @@ import com.rootlol.yam.nadapter.playlist.PlaylistAdapter;
 import com.rootlol.yam.nadapter.playlist.PlaylistListInterface;
 import com.rootlol.yam.nadapter.playlist.data.PlaylistDataSourceFactory;
 import com.rootlol.yam.pojo.feed.FeedPojo;
+import com.rootlol.yam.pojo.playlistslist.Result;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,9 +40,9 @@ public class PlaylistController extends Controller implements SwipeRefreshLayout
     private RecyclerView PRV;
 
     private UsersDB.UserDao userDao;
-    SharedPreferences sPref;
+    private SharedPreferences sPref;
     private String TAG = "PlaylistController";
-    PagedList.Config config;
+    private PagedList.Config config;
     private PlaylistAdapter adapter;
 
 
@@ -114,6 +115,8 @@ public class PlaylistController extends Controller implements SwipeRefreshLayout
     }
     @Override
     public void onItemClick(PlaylistListInterface model, int position) {
+        if (model.getTypeP() == PlaylistListInterface.USER_PLAYLIST)
+            App.getInstance().setKind( ((Result) model).getKind().intValue() );
         getRouter().setRoot(RouterTransaction.with(new TracksController()));
     }
     @Override

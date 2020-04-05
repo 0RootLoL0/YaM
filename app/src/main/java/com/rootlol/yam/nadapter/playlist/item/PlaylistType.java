@@ -31,6 +31,11 @@ public class PlaylistType implements PlaylistListInterface {
     }
 
     @Override
+    public int getTypeP() {
+        return 0;
+    }
+
+    @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder,
                                  int position,
                                  PlaylistListInterface playlist_list,

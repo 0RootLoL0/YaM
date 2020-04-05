@@ -1,6 +1,7 @@
 
 package com.rootlol.yam.pojo.usersplaylists;
 
+import android.net.Uri;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import com.rootlol.yam.nadapter.track.TrackAdapter;
 import com.rootlol.yam.nadapter.track.TrackListInterface;
 import com.rootlol.yam.nadapter.track.TrackVHFactory;
 import com.rootlol.yam.pojo.track.TrackPojo;
+import com.rootlol.yam.tools.MusicRepository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,6 +66,13 @@ public class Track implements TrackListInterface {
                 Glide.with(App.getInstance())
                         .load("https://" +response.body().getResult().get(0).getOgImage().replace("%%", "200x200"))
                         .into(trackViewHolder.imageView5);
+
+                MusicRepository.getInstance().setData(new MusicRepository.Track(
+                        response.body().getResult().get(0).getTitle(),
+                        response.body().getResult().get(0).getArtists().get(0).getName(),
+                        null,
+                        response.body().getResult().get(0).getDurationMs(),
+                        Uri.parse("https://ruq.hotmo.org/get/music/20190717/muzlome_Coone_-_Evolution_Is_Here_65505884.mp3")));
             }
 
             @Override

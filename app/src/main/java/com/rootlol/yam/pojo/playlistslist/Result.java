@@ -212,6 +212,12 @@ public class Result implements PlaylistListInterface {
     public Result(int posit) {
         this.posit = posit;
     }
+
+    @Override
+    public int getTypeP() {
+        return PlaylistListInterface.USER_PLAYLIST;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder,
                                  int position,

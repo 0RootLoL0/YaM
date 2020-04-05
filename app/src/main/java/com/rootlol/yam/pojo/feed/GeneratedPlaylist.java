@@ -61,6 +61,11 @@ public class GeneratedPlaylist implements PlaylistListInterface {
     }
 
     @Override
+    public int getTypeP() {
+        return PlaylistListInterface.FEED;
+    }
+
+    @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder,
                                  int position,
                                  PlaylistListInterface playlist_list,

@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rootlol.yam.App;
 import com.rootlol.yam.R;
-import com.rootlol.yam.adapter.track.interfaces.TrackInterface;
-import com.rootlol.yam.nadapter.playlist.PlaylistListInterface;
 
 public class TrackVHFactory {
     public static class ToolbarViewHolder extends RecyclerView.ViewHolder {

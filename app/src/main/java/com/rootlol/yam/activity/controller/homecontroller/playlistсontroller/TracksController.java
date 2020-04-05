@@ -30,6 +30,7 @@ import com.rootlol.yam.nadapter.track.TrackListInterface;
 import com.rootlol.yam.nadapter.track.data.TrackDataSourceFactory;
 import com.rootlol.yam.pojo.feed.FeedPojo;
 import com.rootlol.yam.pojo.usersplaylists.UsersPlaylistsPojo;
+import com.rootlol.yam.tools.MusicRepository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,7 +62,7 @@ public class TracksController extends Controller implements TrackAdapter.onClick
                 .setEnablePlaceholders(false)
                 .setPageSize(sPref.getInt("LIMIT", 10))
                 .build();
-
+        new MusicRepository();
         updataDatalist();
 
         return view;
@@ -83,7 +84,11 @@ public class TracksController extends Controller implements TrackAdapter.onClick
         adapter.setListener(this);
 
         Map<String, String> TrackPostBody = new HashMap<>();
-        TrackPostBody.put("kinds", "1022");
+        if (App.getInstance().getKind() == 0) {
+            TrackPostBody.put("kinds", "1022");
+        } else {
+            TrackPostBody.put("kinds", ""+App.getInstance().getKind());
+        }
 
         MusicYandexApi.getInstance().getTrackList(
                 userDao.getAll().get(0).user_id,
@@ -101,8 +106,6 @@ public class TracksController extends Controller implements TrackAdapter.onClick
                         adapter.submitList(trackListInterface);
                     }
                 });
-
-
                 TRV.setAdapter(adapter);
             }
 
@@ -128,5 +131,11 @@ public class TracksController extends Controller implements TrackAdapter.onClick
     public boolean handleBack() {
         getRouter().setRoot(RouterTransaction.with(new PlaylistController()));
         return true;
+    }
+
+    @Override
+    protected void onDestroyView(@NonNull View view) {
+        super.onDestroyView(view);
+        updataDatalist();
     }
 }

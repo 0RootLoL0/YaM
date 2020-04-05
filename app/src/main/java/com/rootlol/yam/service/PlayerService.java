@@ -86,7 +86,7 @@ final public class PlayerService extends Service {
     private ExtractorsFactory extractorsFactory;
     private DataSource.Factory dataSourceFactory;
 
-    private MusicRepository musicRepository = new MusicRepository();
+    private MusicRepository musicRepository = MusicRepository.getInstance();
 
     private static PlayerService instance;
 
@@ -259,7 +259,7 @@ final public class PlayerService extends Service {
         }
 
         private void updateMetadataFromTrack(MusicRepository.Track track) {
-            metadataBuilder.putBitmap(MediaMetadataCompat.METADATA_KEY_ART, ImageTool.convert(track.getBitmapResId(), App.getInstance().getResources()));
+            metadataBuilder.putBitmap(MediaMetadataCompat.METADATA_KEY_ART, track.getBitmapResId());
             metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_TITLE, track.getTitle());
             metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_ALBUM, track.getArtist());
             metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_ARTIST, track.getArtist());

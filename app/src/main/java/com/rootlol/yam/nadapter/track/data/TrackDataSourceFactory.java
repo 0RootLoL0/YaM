@@ -8,7 +8,7 @@ import com.rootlol.yam.pojo.usersplaylists.Track;
 
 import java.util.List;
 
-// TODO: разобраться нах нужен этот класс
+//   TODO: разобраться нах нужен этот класс
 public class TrackDataSourceFactory extends DataSource.Factory{
     List<Track> results;
     public TrackDataSourceFactory(List<Track> results) {
@@ -17,6 +17,7 @@ public class TrackDataSourceFactory extends DataSource.Factory{
 
     @Override
     public DataSource create() {
+
         return new TrackDataSourse(results);
     }
 }

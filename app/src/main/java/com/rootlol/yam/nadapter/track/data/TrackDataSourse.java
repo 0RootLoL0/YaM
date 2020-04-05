@@ -27,6 +27,7 @@ public class TrackDataSourse extends PositionalDataSource<TrackListInterface> {
         for (int i = 0; i < params.requestedLoadSize && i <= results.size()-1; i++) result.add(results.get(i));
 
         callback.onResult(result, 0);
+
     }
 
     @Override

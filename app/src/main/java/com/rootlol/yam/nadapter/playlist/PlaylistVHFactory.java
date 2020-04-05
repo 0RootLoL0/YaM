@@ -13,16 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rootlol.yam.R;
 
 public class PlaylistVHFactory {
-    public static class TitleViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView title;
-
-        public TitleViewHolder(View itemView) {
-            super(itemView);
-            title = (TextView) itemView.findViewById(R.id.titlePlaylis);
-        }
-
-    }
 
     public static class PlaylistViewHolder extends RecyclerView.ViewHolder {
 
@@ -43,18 +33,8 @@ public class PlaylistVHFactory {
     }
 
     public static RecyclerView.ViewHolder create(ViewGroup parent, int viewType) {
+        View playlistTypeView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_playlist, parent, false);
 
-        switch (viewType) {
-            case PlaylistListInterface.TITLE_TYPE:
-                View playlistTypeView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_playlist_title, parent, false);
-                return new PlaylistVHFactory.TitleViewHolder(playlistTypeView);
-
-            case PlaylistListInterface.PLAYLIST_TYPE:
-                View titleTypeView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_playlist, parent, false);
-                return new PlaylistVHFactory.PlaylistViewHolder(titleTypeView);
-
-            default:
-                return null;
-        }
+        return new PlaylistVHFactory.PlaylistViewHolder(playlistTypeView);
     }
 }
