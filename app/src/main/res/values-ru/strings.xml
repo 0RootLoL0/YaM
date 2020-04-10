@@ -32,4 +32,6 @@
     <string name="intend_share">Поделится</string>
     <string name="not_net">Нет соединения с интернетом</string>
     <string name="error_in_login_and_pass">Ошибка в Login или Password</string>
+    <string name="desc_error">Да кого я обманываю вылетела ошибка извините кстати для справки про это меню его придумал один разраб игр для NES чтобы даже в случаи ошибки игра всё равно проходила тесты от nintendo</string>
+    <string name="playlist_like_track">Мне нравится</string>
 </resources>

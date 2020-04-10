@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2020 Popov Vasily.
+ * Licensed under the Apache License, Version 2.0
+ */
+
 package com.rootlol.yam.db;
 
 import androidx.room.Dao;

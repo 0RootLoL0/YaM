@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2020 Popov Vasily.
+ * Licensed under the Apache License, Version 2.0
+ */
+
 package com.rootlol.yam.adapter.track;
 
 import android.annotation.SuppressLint;
@@ -34,7 +39,7 @@ public class TrackAdapter extends PagedListAdapter<TrackListInterface, RecyclerV
             new DiffUtil.ItemCallback<TrackListInterface>() {
                 @Override
                 public boolean areItemsTheSame(TrackListInterface oldItem, TrackListInterface newItem) {
-                    return oldItem.getPosit() == newItem.getPosit();
+                    return oldItem.getPosition() == newItem.getPosition();
                 }
 
                 @SuppressLint("DiffUtilEquals")

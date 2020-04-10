@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2020 Popov Vasily.
+ * Licensed under the Apache License, Version 2.0
+ */
+
 package com.rootlol.yam.activity.controller.homecontroller;
 
 import android.content.ComponentName;
@@ -23,6 +28,7 @@ import androidx.annotation.NonNull;
 import com.bluelinelabs.conductor.Controller;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rootlol.yam.R;
+import com.rootlol.yam.activity.ExceptionActivity;
 import com.rootlol.yam.activity.MainActivity;
 import com.rootlol.yam.service.PlayerService;
 
@@ -50,7 +56,7 @@ public class PlayerController extends Controller {
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         View view = inflater.inflate(R.layout.controller_home_player, container, false);
         bind(view);
-
+/*
 
 
         callback = new MediaControllerCompat.Callback() {
@@ -149,7 +155,6 @@ public class PlayerController extends Controller {
         });
 
         Timer timer = new Timer();
-
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -157,17 +162,18 @@ public class PlayerController extends Controller {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (PlayerService.getInstance().getExoPlayer() != null){
+                        if (PlayerService.getInstance().getExoPlayer() != null) {
                             Long progress = PlayerService.getInstance().getExoPlayer().getCurrentPosition();
                             Long max = PlayerService.getInstance().getExoPlayer().getDuration();
-                            if (max > 0) {song_progress.setMax(max.intValue());}
+                            if (max > 0) {
+                                song_progress.setMax(max.intValue());
+                            }
                             song_progress.setProgress(progress.intValue());
                         }
                     }
                 });
             }
-        }, 0, 1000);
-
+        }, 0, 1000);*/
         return view;
     }
 

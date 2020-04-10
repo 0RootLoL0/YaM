@@ -1,25 +1,15 @@
+/*
+ * Copyright © 2020 Popov Vasily.
+ * Licensed under the Apache License, Version 2.0
+ */
+
 package com.rootlol.yam.tools;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.rootlol.yam.App;
-import com.rootlol.yam.activity.ExceptionActivity;
-import com.rootlol.yam.api.MusicYandexApi;
-import com.rootlol.yam.pojo.downloadinfo.DownloadInfoPojo;
-import com.rootlol.yam.pojo.downloadinfo.Result;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MusicRepository {
 
@@ -69,10 +59,9 @@ public class MusicRepository {
         private long duration; // in ms
         private Uri uri;
 
-        public Track(String title, String artist, Bitmap bitmapRes, long duration, int id) {
-            this.title = title;
+        public Track(String title, String artist, String bitmapResUri, long duration, int id) {
+            /*this.title = title;
             this.artist = artist;
-            this.bitmapRes = bitmapRes;
             this.duration = duration;
             MusicYandexApi.getInstance().getDownloadInfoUrl(id, "OAuth "+App.getInstance().getDatabase().userDao().getAll().get(0).token).enqueue(new Callback<DownloadInfoPojo>() {
                 @Override
@@ -94,18 +83,38 @@ public class MusicRepository {
 
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
-                                Log.i("TAG", "onFailure: hui2");
+
+                                ExceptionActivity.viewError("Error in MusicRepository.Track.Track.MusicYandexApi.getDownloadInfoUrl.onResponse.MusicYandexApi.downloadUrl");
                             }
                         });
                     }
+
                 }
 
                 @Override
                 public void onFailure(Call<DownloadInfoPojo> call, Throwable t) {
-                    Log.i("TAG", "onFailure: hui1");
+                    ExceptionActivity.viewError("Error in MusicRepository.Track.Track.MusicYandexApi.getDownloadInfoUrl");
                 }
             });
+            Log.i("TAG", "Track: "+bitmapResUri);
+            MusicYandexApi.getInstance().getCover(bitmapResUri).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        bitmapRes = BitmapFactory.decodeStream(response.body().byteStream());
+                    }catch (NullPointerException e){
+                        Intent intent= new Intent(App.getInstance(), ExceptionActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        App.getInstance().startActivity(intent);
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    ExceptionActivity.viewError("Error in MusicRepository.Track.Track.MusicYandexApi.getCover");
+                }
+            });
+*/
         }
 
         public String getTitle() {
