@@ -8,15 +8,50 @@ import androidx.room.Room;
 import com.rootlol.yam.db.MainDB;
 import com.rootlol.yam.adapter.playlist.PlaylistAdapter;
 
-public class App extends Application {
+import io.github.rootlol.yamapilib.pojo.ApiPojoFeed;
+import io.github.rootlol.yamapilib.pojo.ApiPojoLikesTracks;
+import io.github.rootlol.yamapilib.pojo.ApiPojoPlaylistList;
+import io.github.rootlol.yamapilib.pojo.ApiPojoTracksList;
 
-    //Singleton
+public class App extends Application {
 
     public static App instance;
     private MainDB database;
-    private int kind;
     private AppCompatActivity appCompatActivity;
-    private PlaylistAdapter playlistAdapter;
+
+    public final static int defultItemView = 20;
+
+    private ApiPojoFeed apiPojoFeed;
+    public ApiPojoFeed getApiPojoFeed() {
+        return apiPojoFeed;
+    }
+    public void setApiPojoFeed(ApiPojoFeed apiPojoFeed) {
+        this.apiPojoFeed = apiPojoFeed;
+    }
+
+    private ApiPojoPlaylistList apiPojoPlaylistList;
+    public ApiPojoPlaylistList getApiPojoPlaylistList() {
+        return apiPojoPlaylistList;
+    }
+    public void setApiPojoPlaylistList(ApiPojoPlaylistList apiPojoPlaylistList) {
+        this.apiPojoPlaylistList = apiPojoPlaylistList;
+    }
+
+    private ApiPojoLikesTracks apiPojoLikesTracks;
+    public ApiPojoLikesTracks getApiPojoLikesTracks() {
+        return apiPojoLikesTracks;
+    }
+    public void setApiPojoLikesTracks(ApiPojoLikesTracks apiPojoLikesTracks) {
+        this.apiPojoLikesTracks = apiPojoLikesTracks;
+    }
+
+    private ApiPojoTracksList apiPojoTracksList;
+    public ApiPojoTracksList getApiPojoTracksList() {
+        return apiPojoTracksList;
+    }
+    public void setApiPojoTracksList(ApiPojoTracksList apiPojoTracksList) {
+        this.apiPojoTracksList = apiPojoTracksList;
+    }
 
     @Override
     public void onCreate() {
@@ -32,22 +67,5 @@ public class App extends Application {
     public MainDB getDatabase() {
         return database;
     }
-    public int getKind() {
-        return kind;
-    }
-    public void setKind(int kind) {
-        this.kind = kind;
-    }
-    public AppCompatActivity getAppCompatActivity() {
-        return appCompatActivity;
-    }
-    public void setAppCompatActivity(AppCompatActivity appCompatActivity) {
-        this.appCompatActivity = appCompatActivity;
-    }
-    public PlaylistAdapter getPlaylistAdapter() {
-        return playlistAdapter;
-    }
-    public void setPlaylistAdapter(PlaylistAdapter playlistAdapter) {
-        this.playlistAdapter = playlistAdapter;
-    }
+
 }

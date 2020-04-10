@@ -1,13 +1,15 @@
 package com.rootlol.yam.activity.controller.homecontroller.playlistсontroller;
 
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.paging.LivePagedListBuilder;
@@ -19,20 +21,13 @@ import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.rootlol.yam.App;
 import com.rootlol.yam.R;
-import com.rootlol.yam.api.MusicYandexApi;
+import com.rootlol.yam.adapter.playlist.PlaylistListInterface;
+import com.rootlol.yam.adapter.playlist.data.PlaylistDataSourse;
+import com.rootlol.yam.adapter.track.data.TrackDataSourceFactory;
+import com.rootlol.yam.adapter.track.data.TrackDataSourse;
 import com.rootlol.yam.db.UsersDB;
 import com.rootlol.yam.adapter.track.TrackAdapter;
 import com.rootlol.yam.adapter.track.TrackListInterface;
-import com.rootlol.yam.adapter.track.data.TrackDataSourceFactory;
-import com.rootlol.yam.pojo.usersplaylists.UsersPlaylistsPojo;
-import com.rootlol.yam.tools.MusicRepository;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -44,26 +39,28 @@ public class TracksController extends Controller implements TrackAdapter.onClick
     SharedPreferences sPref;
     PagedList.Config config;
     private TrackAdapter adapter;
-
+    Bundle arguments;
 
     @NonNull
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        View view = inflater.inflate(R.layout.activity_track, container, false);
+        View view = inflater.inflate(R.layout.controller_home, container, false);
 
         //bind view
         bind(view);
         setDB();
         config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
-                .setPageSize(sPref.getInt("LIMIT", 10))
+                .setPageSize(sPref.getInt("LIMIT", App.defultItemView))
                 .build();
-        new MusicRepository();
-        updataDatalist();
+
+        arguments = getActivity().getIntent().getExtras();
+
+        updataDatalist(arguments);
 
         return view;
     }
     private void bind(View view){
-        TRV = view.findViewById(R.id.tlist);
+        TRV = view.findViewById(R.id.list);
         TRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         TRV.setHasFixedSize(true);
     }
@@ -72,43 +69,31 @@ public class TracksController extends Controller implements TrackAdapter.onClick
         sPref = getActivity().getPreferences(MODE_PRIVATE);
     }
 
-    private void updataDatalist(){
+    private void updataDatalist(Bundle arguments){
         //SRL.setRefreshing(true);
-
         adapter = new TrackAdapter();
         adapter.setListener(this);
 
-        Map<String, String> TrackPostBody = new HashMap<>();
-        if (App.getInstance().getKind() == 0) {
-            TrackPostBody.put("kinds", "1022");
-        } else {
-            TrackPostBody.put("kinds", ""+App.getInstance().getKind());
-        }
+        TrackDataSourse.getNewInstance();
+        PlaylistDataSourse.getNewInstance();
 
-        MusicYandexApi.getInstance().getTrackList(
-                userDao.getAll().get(0).user_id,
-                "OAuth "+userDao.getAll().get(0).token,
-                TrackPostBody).enqueue(new Callback<UsersPlaylistsPojo>() {
+        TrackDataSourceFactory trackDataSourceFactory;
+        Log.i("TAG", "updataDatalist: "+arguments.getInt("type"));
+             if (arguments.getInt("type") == PlaylistListInterface.FEED)
+            trackDataSourceFactory = new TrackDataSourceFactory(arguments.getString("playlist"));
+        else if (arguments.getInt("type") == PlaylistListInterface.USER_PLAYLIST)
+            trackDataSourceFactory = new TrackDataSourceFactory(arguments.getInt("kind"));
+        else //                                                         USER_LIKE
+            trackDataSourceFactory = new TrackDataSourceFactory();
+        LiveData<PagedList<TrackListInterface>> pagedListLiveData = new LivePagedListBuilder<>(trackDataSourceFactory, config).build();
+        pagedListLiveData.observe((AppCompatActivity) getActivity(), new Observer<PagedList<TrackListInterface>>() {
             @Override
-            public void onResponse(Call<UsersPlaylistsPojo> call, Response<UsersPlaylistsPojo> response) {
-
-                LiveData<PagedList<TrackListInterface>> pagedListLiveData = new LivePagedListBuilder<>(new TrackDataSourceFactory(response.body().getResult().get(0).getTracks()), config).build();
-                //лол грязный хак         ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇    TODO: исправить
-                pagedListLiveData.observe(App.getInstance().getAppCompatActivity(), new Observer<PagedList<TrackListInterface>>() {
-                    @Override
-                    public void onChanged(@Nullable PagedList<TrackListInterface> trackListInterface) {
-
-                        adapter.submitList(trackListInterface);
-                    }
-                });
-                TRV.setAdapter(adapter);
-            }
-
-            @Override
-            public void onFailure(Call<UsersPlaylistsPojo> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), R.string.not_net, Toast.LENGTH_LONG).show();
+            public void onChanged(@Nullable PagedList<TrackListInterface> trackListInterface) {
+                adapter.submitList(trackListInterface);
             }
         });
+
+        TRV.setAdapter(adapter);
     }
 
 
@@ -126,11 +111,5 @@ public class TracksController extends Controller implements TrackAdapter.onClick
     public boolean handleBack() {
         getRouter().setRoot(RouterTransaction.with(new PlaylistController()));
         return true;
-    }
-
-    @Override
-    protected void onDestroyView(@NonNull View view) {
-        super.onDestroyView(view);
-        updataDatalist();
     }
 }

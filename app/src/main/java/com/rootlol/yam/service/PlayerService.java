@@ -51,6 +51,7 @@ import com.google.android.exoplayer2.upstream.cache.SimpleCache;
 import com.google.android.exoplayer2.util.Util;
 import com.rootlol.yam.App;
 import com.rootlol.yam.R;
+import com.rootlol.yam.activity.ExceptionActivity;
 import com.rootlol.yam.activity.MainActivity;
 import com.rootlol.yam.tools.ImageTool;
 import com.rootlol.yam.tools.MusicRepository;
@@ -231,12 +232,16 @@ final public class PlayerService extends Service {
 
         @Override
         public void onSkipToNext() {
+            try {
             MusicRepository.Track track = musicRepository.getNext();
             updateMetadataFromTrack(track);
 
             refreshNotificationAndForegroundStatus(currentState);
             mediaSession.setPlaybackState(stateBuilder.setState(PlaybackStateCompat.STATE_SKIPPING_TO_NEXT, PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN, 1).build());
             prepareToPlay(track.getUri());
+            } catch (Exception e){
+                ExceptionActivity.viewError("Error in PlayerService.onSkipToNext:\n"+e.toString());
+            }
         }
 
         @Override

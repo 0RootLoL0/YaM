@@ -14,15 +14,6 @@ import com.rootlol.yam.App;
 import com.rootlol.yam.R;
 
 public class TrackVHFactory {
-    public static class ToolbarViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView lable;
-
-        public ToolbarViewHolder(View itemView) {
-            super(itemView);
-            lable = itemView.findViewById(R.id.textView11);
-        }
-    }
 
     public static class TrackViewHolder extends RecyclerView.ViewHolder {
 
@@ -52,12 +43,10 @@ public class TrackVHFactory {
             case TrackListInterface.TRACK_TYPE:
                 View toolbarTypeView = LayoutInflater.from(App.getInstance()).inflate(R.layout.item_track, parent, false);
                 return new TrackVHFactory.TrackViewHolder(toolbarTypeView);
-            case TrackListInterface.TOOLBAR_TYPE:
-                View trackToolbarTypeView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_track_toolbar, parent, false);
-                return new TrackVHFactory.ToolbarViewHolder(trackToolbarTypeView);
 
             default:
                 return null;
         }
     }
+
 }

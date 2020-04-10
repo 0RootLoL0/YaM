@@ -14,13 +14,13 @@ import android.widget.Toast;
 
 import com.rootlol.yam.App;
 import com.rootlol.yam.R;
-import com.rootlol.yam.api.OauthYandexApi;
 import com.rootlol.yam.db.UsersDB;
-import com.rootlol.yam.pojo.TokenPojo;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import io.github.rootlol.yamapilib.OauthYandexApi;
+import io.github.rootlol.yamapilib.pojo.ApiPojoToken;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,14 +58,14 @@ public class LoginActivity extends AppCompatActivity {
                 LoginPostBody.put("client_secret", "53bc75238f0c4d08a118e51fe9203300");
                 LoginPostBody.put("username", login.getText().toString());
                 LoginPostBody.put("password", password.getText().toString());
-                OauthYandexApi.getInstance().login(LoginPostBody).enqueue(new Callback<TokenPojo>() {
+                OauthYandexApi.getInstance().login(LoginPostBody).enqueue(new Callback<ApiPojoToken>() {
                     @Override
-                    public void onResponse(Call<TokenPojo> call, Response<TokenPojo> response) {
-                        if (response.body().getAccess_token() != null) {
+                    public void onResponse(Call<ApiPojoToken> call, Response<ApiPojoToken> response) {
+                        if (response.body().getAccessToken() != null) {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             UsersDB.UserDao userDao = App.getInstance().getDatabase().userDao();
                             userDao.insert(new UsersDB.UserEntity(login.getText().toString(),
-                                    response.body().getAccess_token(),
+                                    response.body().getAccessToken(),
                                     response.body().getUid()));
                             startActivity(intent);
                             finish();
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<TokenPojo> call, Throwable t) {
+                    public void onFailure(Call<ApiPojoToken> call, Throwable t) {
                         Toast.makeText(getApplicationContext(), R.string.not_net, Toast.LENGTH_LONG).show();
                     }
                 });

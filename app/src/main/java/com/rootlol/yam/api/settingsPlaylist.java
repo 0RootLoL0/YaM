@@ -3,8 +3,6 @@ package com.rootlol.yam.api;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
-import com.rootlol.yam.pojo.playlistdelet.PlaylistDeletePojo;
-import com.rootlol.yam.pojo.playlistrename.PlaylistRenamePojo;
 
 import java.io.IOException;
 
@@ -17,7 +15,7 @@ import okhttp3.Response;
 
 public abstract class settingsPlaylist extends AsyncTask<String, Void, String> {
 
-    public String postDeletePlaylist(String token, String user_id, String kind){
+    /*public String postDeletePlaylist(String token, String user_id, String kind){
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
@@ -113,5 +111,5 @@ public abstract class settingsPlaylist extends AsyncTask<String, Void, String> {
             default:
                 return null;
         }
-    }
+    }*/
 }

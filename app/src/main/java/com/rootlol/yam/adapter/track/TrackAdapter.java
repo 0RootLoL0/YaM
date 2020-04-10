@@ -34,7 +34,7 @@ public class TrackAdapter extends PagedListAdapter<TrackListInterface, RecyclerV
             new DiffUtil.ItemCallback<TrackListInterface>() {
                 @Override
                 public boolean areItemsTheSame(TrackListInterface oldItem, TrackListInterface newItem) {
-                    return oldItem.getPosit() == newItem.getPosit();
+                    return oldItem.getPosition() == newItem.getPosition();
                 }
 
                 @SuppressLint("DiffUtilEquals")

@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        App.getInstance().setAppCompatActivity(this);
         container = findViewById(R.id.controller_container);
 
         router = Conductor.attachRouter(this, container, savedInstanceState);

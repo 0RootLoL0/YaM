@@ -4,10 +4,10 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.paging.LivePagedListBuilder;
@@ -18,19 +18,18 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
+import com.google.android.material.snackbar.Snackbar;
 import com.rootlol.yam.App;
 import com.rootlol.yam.R;
-import com.rootlol.yam.api.MusicYandexApi;
+import com.rootlol.yam.activity.ExceptionActivity;
+import com.rootlol.yam.adapter.playlist.data.PlaylistDataSourse;
+import com.rootlol.yam.adapter.playlist.item.FeedType;
+import com.rootlol.yam.adapter.playlist.item.PlaylistType;
+import com.rootlol.yam.adapter.track.data.TrackDataSourse;
 import com.rootlol.yam.db.UsersDB;
 import com.rootlol.yam.adapter.playlist.PlaylistAdapter;
 import com.rootlol.yam.adapter.playlist.PlaylistListInterface;
 import com.rootlol.yam.adapter.playlist.data.PlaylistDataSourceFactory;
-import com.rootlol.yam.pojo.feed.FeedPojo;
-import com.rootlol.yam.pojo.playlistslist.Result;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -38,6 +37,7 @@ public class PlaylistController extends Controller implements SwipeRefreshLayout
 
     private SwipeRefreshLayout SRL;
     private RecyclerView PRV;
+    private Snackbar SBNN;
 
     private UsersDB.UserDao userDao;
     private SharedPreferences sPref;
@@ -48,22 +48,21 @@ public class PlaylistController extends Controller implements SwipeRefreshLayout
 
     @NonNull
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        View view = inflater.inflate(R.layout.controller_home_playlist, container, false);
+        View view = inflater.inflate(R.layout.controller_home, container, false);
 
-        //bind view
-        bind(view);
-        setDB();
-        config = new PagedList.Config.Builder()
-                .setEnablePlaceholders(false)
-                .setPageSize(sPref.getInt("LIMIT", 10))
-                .build();
+        try {
 
-        if (App.getInstance().getPlaylistAdapter() == null) updataDatalist();
-        else {
-            PRV.setAdapter(App.getInstance().getPlaylistAdapter());
-            SRL.setRefreshing(false);
-        }
+            //bind view
+            bind(view);
+            setDB();
+            config = new PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setPageSize(sPref.getInt("LIMIT", App.defultItemView))
+                    .build();
 
+            updataDatalist();
+        }catch (Exception e) {
+            ExceptionActivity.viewError(e.toString());}
         return view;
     }
     private void bind(View view){
@@ -72,6 +71,7 @@ public class PlaylistController extends Controller implements SwipeRefreshLayout
         PRV = view.findViewById(R.id.list);
         PRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         PRV.setHasFixedSize(true);
+        SBNN = Snackbar.make(getActivity().findViewById(R.id.controller_container), R.string.not_net, Snackbar.LENGTH_LONG);
     }
     private void setDB(){
         userDao = App.getInstance().getDatabase().userDao();
@@ -83,29 +83,18 @@ public class PlaylistController extends Controller implements SwipeRefreshLayout
 
         adapter = new PlaylistAdapter();
         adapter.setListener(this);
-        MusicYandexApi.getInstance().feed("OAuth "+userDao.getAll().get(0).token).enqueue(new Callback<FeedPojo>() {
+
+        TrackDataSourse.getNewInstance();
+        PlaylistDataSourse.getNewInstance();
+
+        LiveData<PagedList<PlaylistListInterface>> pagedListLiveData = new LivePagedListBuilder<>(new PlaylistDataSourceFactory(userDao.getAll().get(0).user_id, userDao.getAll().get(0).token, SBNN, SRL), config).build();
+        pagedListLiveData.observe((AppCompatActivity) getActivity(), new Observer<PagedList<PlaylistListInterface>>() {
             @Override
-            public void onResponse(Call<FeedPojo> call, Response<FeedPojo> response) {
-
-                LiveData<PagedList<PlaylistListInterface>> pagedListLiveData = new LivePagedListBuilder<>(new PlaylistDataSourceFactory(response.body().getResult().getGeneratedPlaylists()), config).build();
-                //лол грязный хак         ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇    TODO: исправить
-                pagedListLiveData.observe(App.getInstance().getAppCompatActivity(), new Observer<PagedList<PlaylistListInterface>>() {
-                    @Override
-                    public void onChanged(@Nullable PagedList<PlaylistListInterface> playlistListInterfaces) {
-
-                        adapter.submitList(playlistListInterfaces);
-                    }
-                });
-                PRV.setAdapter(adapter);
-                SRL.setRefreshing(false);
-            }
-
-            @Override
-            public void onFailure(Call<FeedPojo> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), R.string.not_net, Toast.LENGTH_LONG).show();
-                SRL.setRefreshing(false);
+            public void onChanged(@Nullable PagedList<PlaylistListInterface> playlistListInterfaces) {
+                adapter.submitList(playlistListInterfaces);
             }
         });
+        PRV.setAdapter(adapter);
     }
 
     //IMPLEMENTS
@@ -115,18 +104,18 @@ public class PlaylistController extends Controller implements SwipeRefreshLayout
     }
     @Override
     public void onItemClick(PlaylistListInterface model, int position) {
-        if (model.getTypeP() == PlaylistListInterface.USER_PLAYLIST)
-            App.getInstance().setKind( ((Result) model).getKind().intValue() );
+        getActivity().getIntent().putExtra("type", model.getType());
+
+        if (model.getType() == PlaylistListInterface.USER_PLAYLIST) {
+            getActivity().getIntent().putExtra("kind", ((PlaylistType) model).getKind());
+        }else if (model.getType() == PlaylistListInterface.FEED){
+            getActivity().getIntent().putExtra("playlist", ((FeedType)model).getInfoType());
+        }
+
         getRouter().setRoot(RouterTransaction.with(new TracksController()));
     }
     @Override
     public void onSettingsItemClick(PlaylistListInterface model, int position) {
 
-    }
-
-    @Override
-    protected void onDestroyView(@NonNull View view) {
-        super.onDestroyView(view);
-        App.getInstance().setPlaylistAdapter(adapter);
     }
 }
