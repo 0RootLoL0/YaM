@@ -65,6 +65,15 @@ public class PlaylistController extends Controller implements SwipeRefreshLayout
                     .setPageSize(sPref.getInt("LIMIT", App.defultItemView))
                     .build();
 
+
+            //bind view
+            bind(view);
+            setDB();
+            config = new PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setPageSize(sPref.getInt("LIMIT", App.defultItemView))
+                    .build();
+
             updataDatalist();
         }catch (Exception e) {
             ExceptionActivity.viewError(e.toString());}

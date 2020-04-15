@@ -11,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.rootlol.yam.db.MainDB;
-import com.rootlol.yam.adapter.playlist.PlaylistAdapter;
-
 import io.github.rootlol.yamapilib.pojo.feed.ApiPojoFeed;
 import io.github.rootlol.yamapilib.pojo.ApiPojoLikesTracks;
 import io.github.rootlol.yamapilib.pojo.ApiPojoPlaylistList;
