@@ -23,4 +23,16 @@
     <string name="dialog_playlist_settings_share">share</string>
     <string name="dialog_playlist_settings_playlist_title">title</string>
     <string name="intend_share">Share</string>
+    <string name="not_track_lable">the track is not selected</string>
+    <string name="not_track_subtitle">select a track</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="notification_channel_name" translatable="false">Player controls</string>
+    <string name="not_net">not conect network</string>
+    <string name="error_in_login_and_pass">Login and password error</string>
+    <string name="desc_error">Да кого я обманываю вылетела ошибка извините кстати для справки про это меню его придумал один разраб игр для NES чтобы даже в случаи ошибки игра всё равно проходила тесты от nintendo</string>
+    <string name="playlist_like_track">I like</string>
 </resources>

@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2020 Popov Vasily.
+ * Licensed under the Apache License, Version 2.0
+ */
+
 package com.rootlol.yam.activity.controller.homecontroller;
 
 import android.content.Intent;
@@ -8,16 +13,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bluelinelabs.conductor.Controller;
 import com.rootlol.yam.App;
 import com.rootlol.yam.R;
 import com.rootlol.yam.activity.LoginActivity;
-import com.rootlol.yam.db.ApplicationDB;
-import com.rootlol.yam.db.PlaylistCacheDB;
-import com.rootlol.yam.db.TrackListCacheDB;
 import com.rootlol.yam.db.UsersDB;
 
 public class SettingsController extends Controller {
@@ -26,10 +26,7 @@ public class SettingsController extends Controller {
     private TextView login;
 
     //db
-    private ApplicationDB.ApplicationDao applicationDao;
     private UsersDB.UserDao userDao;
-    private PlaylistCacheDB.PlaylistCacheDao playlistCacheDao;
-    private TrackListCacheDB.TrackCacheDao trackCacheDao;
 
 
 
@@ -42,8 +39,6 @@ public class SettingsController extends Controller {
             @Override
             public void onClick(View v) {
                 userDao.delete(userDao.getById(0));
-                playlistCacheDao.deleteAll();
-                applicationDao.delete(applicationDao.getItem());
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
@@ -58,9 +53,6 @@ public class SettingsController extends Controller {
     }
 
     private void setDB(){
-        applicationDao = App.getInstance().getDatabase().applicationDao();
         userDao = App.getInstance().getDatabase().userDao();
-        playlistCacheDao = App.getInstance().getDatabase().playlistCacheDao();
-        trackCacheDao = App.getInstance().getDatabase().trackCacheDao();
     }
 }

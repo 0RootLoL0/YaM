@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2020 Popov Vasily.
+ * Licensed under the Apache License, Version 2.0
+ */
+
 package com.rootlol.yam.activity.controller;
 
 import android.view.LayoutInflater;
@@ -18,6 +23,7 @@ import com.rootlol.yam.activity.controller.homecontroller.PlayerController;
 import com.rootlol.yam.activity.controller.homecontroller.playlistсontroller.PlaylistController;
 import com.rootlol.yam.activity.controller.homecontroller.RadioController;
 import com.rootlol.yam.activity.controller.homecontroller.SettingsController;
+import com.rootlol.yam.activity.controller.homecontroller.playlistсontroller.TracksController;
 
 public class HomeController extends Controller {
 
